@@ -1,0 +1,9 @@
+#!/bin/sh
+
+exec consul-template \
+     -consul=consul:8500 \
+     -template "/etc/consul-templates/nginx.conf:/opt/openresty/nginx/conf/nginx.conf:sv hup openresty" \
+     -template "/etc/consul-templates/app.conf:/opt/openresty/nginx/conf/conf.d/app.conf:sv hup openresty"
+
+
+
