@@ -10,14 +10,18 @@ RUN DEBIAN_FRONTEND=noninteractive \
     apt-get -y clean && \
     apt-get -y autoclean 
 
-ADD debs/openresty_1.11.2.2rc1_amd64.deb /tmp/
-RUN dpkg -i /tmp/openresty_1.11.2.2rc1_amd64.deb
-RUN rm -f /tmp/openresty_1.11.2.2rc1_amd64.deb
+ADD debs/openresty_1.11.2.2_amd64.deb /tmp/
+RUN dpkg -i /tmp/openresty_1.11.2.2_amd64.deb
+RUN rm -f /tmp/openresty_1.11.2.2_amd64.deb
+
 
 ADD services/openresty.service /etc/service/openresty/run
 RUN chmod a+x /etc/service/openresty/run
 ADD services/consul-template.service /etc/service/consul-template/run
 RUN chmod a+x /etc/service/consul-template/run
+
+RUN mkdir /var/cache/pgspeed
+RUN chown www-data:www-data /var/cache/pgspeed
 
 ADD consul-templates/app.conf /etc/consul-templates/app.conf
 ADD consul-templates/nginx.conf /etc/consul-templates/nginx.conf
