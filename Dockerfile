@@ -14,6 +14,8 @@ ADD debs/openresty_1.11.2.2_amd64.deb /tmp/
 RUN dpkg -i /tmp/openresty_1.11.2.2_amd64.deb
 RUN rm -f /tmp/openresty_1.11.2.2_amd64.deb
 
+ADD scripts/genssl.phar /usr/local/bin/
+RUN chmod a+x /usr/local/bin/genssl.phar
 
 ADD services/openresty.service /etc/service/openresty/run
 RUN chmod a+x /etc/service/openresty/run
